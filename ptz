@@ -3,6 +3,7 @@
 #PTZ Camera control script
 ###########
 
+
 #TODO: Change this to the IP of your web camera
 ip='192.168.0.124';
 
@@ -10,12 +11,15 @@ ip='192.168.0.124';
 user='admin';
 pass='admin';
 
+
+# Set a default step value if none set
 if [[ $2 !=  0 ]]; then
 	step="0";
 else
 	step="$2";
 fi
 
+# Check if a command has been entered and send it to the camera
 if [ $1 !=  0 ]; then
 
 	cmd="-step=0&-act=$1"
@@ -23,9 +27,9 @@ if [ $1 !=  0 ]; then
 	if [ $1 == 'setpos' ]; then
 		cmd='-set&-status=1&-number=$2'
 	fi
-
 	wget  --quiet -O /dev/null  "http://$user:$pass@$ip/cgi-bin/hi3510/ptzctrl.cgi?$cmd" 
 else
+# If no command to send then blat out some helpinfo
 	echo " "
 	echo "Usage: "
 	echo "      $0 home [speed]"
@@ -39,7 +43,6 @@ else
 	echo "      $0 setpos n"
 	echo "      $0 clearpos n"
 	echo "      $0 gotopos n"
-
 	
 fi
 
