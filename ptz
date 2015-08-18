@@ -5,7 +5,7 @@
 
 
 #TODO: Change this to the IP of your web camera
-ip='192.168.0.124';
+ip='192.168.1.88';
 
 #TODO: Change this to your camera's username and password
 user='admin';
