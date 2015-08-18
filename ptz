@@ -1,0 +1,45 @@
+#/bin/bash
+############
+#PTZ Camera control script
+###########
+
+#TODO: Change this to the IP of your web camera
+ip='192.168.0.124';
+
+#TODO: Change this to your camera's username and password
+user='admin';
+pass='admin';
+
+if [[ $2 !=  0 ]]; then
+	step="0";
+else
+	step="$2";
+fi
+
+if [ $1 !=  0 ]; then
+
+	cmd="-step=0&-act=$1"
+
+	if [ $1 == 'setpos' ]; then
+		cmd='-set&-status=1&-number=$2'
+	fi
+
+	wget  --quiet -O /dev/null  "http://$user:$pass@$ip/cgi-bin/hi3510/ptzctrl.cgi?$cmd" 
+else
+	echo " "
+	echo "Usage: "
+	echo "      $0 home [speed]"
+	echo "      $0 up [speed]"
+	echo "      $0 left [speed]"
+	echo "      $0 right [speed]"
+	echo "      $0 down [speed]"
+	echo "      $0 stop "
+	echo "      $0 hscan [speed]"
+	echo "      $0 vscan [speed]"
+	echo "      $0 setpos n"
+	echo "      $0 clearpos n"
+	echo "      $0 gotopos n"
+
+	
+fi
+
